@@ -1,6 +1,9 @@
 
 .logo {
-  width: 50%;
-  margin-top: 10px;
-  border-radius: 50%;
+	@extend %width;
+	margin-top: 10px;
+	border-radius: 50%;
+	@media #{$break} {
+		width: 100%;
+	} 	
 }

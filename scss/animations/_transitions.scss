@@ -1,5 +1,10 @@
 
 .row {
-  background-color: rgba(205, 125, 127, .8);
-  transition: background-color .5s, color .5s; 
+	background-color: $salmon;
+	transition: background-color .5s, color .5s; 
+	&:hover {
+	  color: $white;
+	  background-color: $dark-salmon;
+	}
 }
+

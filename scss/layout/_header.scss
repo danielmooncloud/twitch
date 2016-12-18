@@ -1,4 +1,8 @@
 .header {
-  margin: 0 auto 50px;
-  width: 50%;
+	margin: 0 auto 50px;
+	@extend %width;
+	@media #{$break} {
+		margin: auto;
+		width: 80%;
+	} 
 }

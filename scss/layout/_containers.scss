@@ -1,14 +1,23 @@
 .main {
-  margin: 0 auto;
-  width: 50%;
+	@extend %position;
+	@extend %width;
+	@media #{$break} {
+		margin: auto;
+    	width: 90%;
+    	text-align: center;
+	} 
 }
-  
+	 
 .row {
-  height: 80px;
-  margin-top: 10px;
+	height: 80px;
+	margin-top: 10px;
+	
 }
 
-.row:hover {
-  color: white;
-  background-color: rgba(152, 75, 69, .4);
+ul {
+	@media #{$break} {
+		width: 90%;
+    	text-align: center;
+    	margin: auto;
+	} 	
 }
