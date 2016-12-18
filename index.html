@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset = "utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css/animate.min.css">
+	<link rel='stylesheet' href="css/style.css">
+	
+</head>
+
+<body ng-app="Twitch" ng-controller="MainController">
+  	<div class = 'header'>
+
+        <h1 ng-click='none()'>TWITCH</h1>            
+    </div>
+ 
+   
+  	<div class="main">
+    	<ul class = 'nav nav-tabs'>
+		    <li><button class="btn btn-primary all" id='all'>All</button></li>
+		    <li><button class="btn btn-primary" id='online'>Online</button></li>
+		    <li><button class="btn btn-primary" id = 'offline'>Offline</button></li>
+    	</ul>
+        <!-- ONLINE USERS -->
+       
+     	<div class="row online all" ng-repeat="user in onlineUsers"> 
+        	<div class="col-xs-2">
+          	<img ng-src ="{{user.userData.logo}}" class="logo"/> 
+        	</div>
+        	<div class="col-xs-4 name">
+          	<p>{{user.userData.display_name}}</p>                   
+         	</div>
+         	<div class="col-xs-6" id='stream'>
+          	<a ng-href="https://www.twitch.tv/{{user.href}}" target="blank">{{user.streamData.stream.game}}: {{user.streamData.stream.channel.status}}</a>
+         	</div>
+      </div>
+        
+     <!-- OFFLINE USERS -->   
+        
+    	<div class="row offline all" ng-repeat="user in offlineUsers">
+      	<div class="col-xs-2">
+         		<img ng-src ="{{user.userData.logo}}" class="logo"/> 
+      	</div>
+      	<div class="col-xs-4 name">
+         		<p>{{user.name}}</p>
+      	</div>
+      	<div class="col-xs-6" id='stream'>
+          	<p>OFFLINE</p>
+      	</div>
+    	</div>
+       
+      <!-- CLOSED ACCOUNTS -->
+         
+    	<div class="row all" ng-repeat="user in invalid"> 
+       		<div class="col-xs-2">
+         		<img src ="http://images.clipartpanda.com/question-mark-black-and-white-Icon-round-Question_mark.jpg" class="logo"/> 
+        	</div>
+        	<div class="col-xs-4 name">
+         		<p>{{user.name}}</p>                   
+        	</div>
+        	<div class="col-xs-6" id='stream'>
+          		<p>ACCOUNT CLOSED</p>
+        	</div>
+  		</div>
+    </div> 
+
+    <!-- vendors -->
+    <script src="js/vendors/angular/angular.min.js"></script>
+    <script src="js/vendors/angular-animate/angular-animate.min.js"></script>
+    <!-- modules -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <!-- controllers -->
+    <script src="js/controllers/MainController.js"></script>
+    <!-- services -->
+    <script src="js/services/members.js"></script>
+
+</body>
