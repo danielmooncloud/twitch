@@ -1,0 +1,73 @@
+@import "https://fonts.googleapis.com/css?family=Orbitron";
+* {
+  box-sizing: border-box; }
+
+body {
+  height: 1200px;
+  background-image: url("http://blog.starsunflowerstudio.com/wp-content/uploads/2011/02/space_bokeh_background_awake_seamless_tile_pattern_pattterns_tiles.jpg");
+  background-size: cover; }
+
+.row {
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 2px; }
+
+.btn {
+  margin-right: 2px;
+  width: 100px;
+  color: white;
+  background-color: #1d2f3b; }
+
+.logo {
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 50%; }
+
+body {
+  font-size: 18px;
+  font-family: 'Orbitron'; }
+
+.header {
+  text-align: center;
+  color: #d8c5e8; }
+
+h1 {
+  font-size: 80px;
+  letter-spacing: 10px; }
+
+.header {
+  margin: 0 auto 50px;
+  width: 50%; }
+
+.col-xs-6 {
+  padding-top: 25px;
+  padding-left: 20px;
+  height: 100%; }
+
+.col-xs-4 {
+  margin: auto;
+  height: 100%;
+  padding-top: 25px;
+  text-align: center; }
+
+.col-xs-2 {
+  margin: auto;
+  height: 100%; }
+
+.main {
+  margin: 0 auto;
+  width: 50%; }
+
+.row {
+  height: 80px;
+  margin-top: 10px; }
+
+.row:hover {
+  color: white;
+  background-color: rgba(152, 75, 69, 0.4); }
+
+.row {
+  background-color: rgba(205, 125, 127, 0.8);
+  transition: background-color .5s, color .5s; }
+
+/*# sourceMappingURL=application.css.map */

@@ -1,0 +1,14 @@
+.main {
+  margin: 0 auto;
+  width: 50%;
+}
+  
+.row {
+  height: 80px;
+  margin-top: 10px;
+}
+
+.row:hover {
+  color: white;
+  background-color: rgba(152, 75, 69, .4);
+}
