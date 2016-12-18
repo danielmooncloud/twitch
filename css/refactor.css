@@ -1,4 +1,32 @@
+//Font Styles
 @import 'https://fonts.googleapis.com/css?family=Orbitron';
+
+
+//Base Styles
+
+ h1 {
+  font-size: 80px;
+  letter-spacing: 10px;
+}
+
+button {
+  border: 1px solid black;
+  margin-right: 2px;
+  width: 100px;
+  color: white;
+  background-color: rgb(29, 47, 59);
+}
+
+//Main Styles
+
+
+.logo {
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 50%;
+}
+
+//Layout Styles
 
 body {
 height: 1200px; 
@@ -8,18 +36,6 @@ background-image: url('http://blog.starsunflowerstudio.com/wp-content/uploads/20
   font-family: 'Orbitron';
 }
 
-#twitch {
-  
-  margin-right: 0px;
-}
-
-.btn {
-  border: 1px solid black;
-  margin-right: 2px;
-  width: 100px;
-  color: white;
-  background-color: rgb(29, 47, 59);
-}
 
 .header {
   text-align: center;
@@ -28,19 +44,12 @@ background-image: url('http://blog.starsunflowerstudio.com/wp-content/uploads/20
   width: 50%;
 }
 
-.header h1 {
-  font-size: 80px;
-  letter-spacing: 10px;
-}
 
 .main {
   margin: 0 auto;
   width: 50%;
 }
   
-
-
-
 .row {
   height: 80px;
   white-space: nowrap;
@@ -51,16 +60,6 @@ background-image: url('http://blog.starsunflowerstudio.com/wp-content/uploads/20
   transition: background-color .5s, color .5s;
   
 }
-
-.row:hover {
-  color: white;
-  background-color: rgba(152, 75, 69, .4);
-}
-
-.name {
- padding-top: 25px; 
-}
-
 
 
 .col-xs-6 {
@@ -73,6 +72,7 @@ background-image: url('http://blog.starsunflowerstudio.com/wp-content/uploads/20
   margin: auto;
   height: 100%;
   text-align: center;
+  padding-top: 25px; 
 }
 
 
@@ -81,15 +81,17 @@ background-image: url('http://blog.starsunflowerstudio.com/wp-content/uploads/20
   height: 100%;
 }
 
-.logo {
-  width: 50%;
-  margin-top: 10px;
-  border-radius: 50%;
+//Pseudo Classes
+
+
+.row:hover {
+  color: white;
+  background-color: rgba(152, 75, 69, .4);
 }
 
-.hide {
-  color: blue;
-}
+//Media Queries
+
+
 
 
 @media screen and (max-width: 600px) {
@@ -112,6 +114,11 @@ background-image: url('http://blog.starsunflowerstudio.com/wp-content/uploads/20
     width: 100%;
     text-align: center;
   }
+
+  .nav {
+    width: 80%;
+    margin: auto;
+  }
   
   ul {
     width: 90%;
@@ -121,7 +128,7 @@ background-image: url('http://blog.starsunflowerstudio.com/wp-content/uploads/20
   
   .row {
     margin: 10px auto;
-    width: 90%;
+    width: 80%;
     font-size: 14px;
   }
   
@@ -132,18 +139,6 @@ background-image: url('http://blog.starsunflowerstudio.com/wp-content/uploads/20
   .logo {
     width: 100%;
   }
-
   
+
 }
-
-.test {
-  color: white;
-  border: 1px solid white;
-}
-
-
-
-
-
-
-

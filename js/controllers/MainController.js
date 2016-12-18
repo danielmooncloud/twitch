@@ -6,6 +6,11 @@ $scope.invalid = [];
 
 $scope.users = members.users;
 
+$scope.state = function(online, offline) {
+	$scope.online = online;
+	$scope.offline = offline;
+}
+
 $scope.users.forEach(function(user) {
 	members.getUsers(user, function(firstResponse) {
 		let userData = firstResponse.data;
@@ -35,8 +40,6 @@ $scope.users.forEach(function(user) {
 		}	
 	})
 })
-console.log($scope.onlineUsers);
-console.log($scope.offlineUsers);
-console.log($scope.invalid);
+
 
 }]);
