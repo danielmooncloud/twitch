@@ -13,6 +13,9 @@ $scope.state = function(online, offline) {
 
 $scope.users.forEach(function(user) {
 	members.getUsers(user, function(firstResponse) {
+		if(firstResponse.status !== 200) {
+			return false;
+		}
 		let userData = firstResponse.data;
 		if(userData.error) {
 			let userObject = {
@@ -21,6 +24,9 @@ $scope.users.forEach(function(user) {
 			$scope.invalid.push(userObject);
 		} else {
 			members.getStreams(user, function(secondResponse) {
+				if(secondResponse.status !== 200) {
+					return false;
+				}
 				let streamData = secondResponse.data;
 				if(!streamData.stream) {
 					let userObject = {
