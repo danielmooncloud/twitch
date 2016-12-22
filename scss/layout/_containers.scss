@@ -1,7 +1,7 @@
 .main {
 	@extend %position;
 	@extend %width;
-	@media #{$break} {
+	@media #{$break-tablet} {
 		margin: auto;
     	width: 90%;
     	text-align: center;
@@ -15,7 +15,7 @@
 }
 
 ul {
-	@media #{$break} {
+	@media #{$break-tablet} {
 		width: 90%;
     	text-align: center;
     	margin: auto;

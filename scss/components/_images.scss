@@ -1,9 +1,10 @@
 
 .logo {
-	@extend %width;
-	margin-top: 10px;
+	@extend %flex;
+	max-width: 90px;
+	max-height: 100%;
 	border-radius: 50%;
-	@media #{$break} {
+	@media #{$break-tablet} {
 		width: 100%;
 	} 	
 }

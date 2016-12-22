@@ -1,7 +1,7 @@
 .header {
 	margin: 0 auto 50px;
 	@extend %width;
-	@media #{$break} {
+	@media #{$break-tablet} {
 		margin: auto;
 		width: 80%;
 	} 

@@ -1,7 +1,8 @@
 
 .row {
 	background-color: $salmon;
-	transition: background-color .5s, color .5s; 
+	@include transition(.5s, background-color); 
+	@include transition(.5s, color);
 	&:hover {
 	  color: $white;
 	  background-color: $dark-salmon;

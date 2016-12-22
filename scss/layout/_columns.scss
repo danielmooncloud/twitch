@@ -13,8 +13,8 @@
 }
 
 .col-xs-2  {
+  @extend %displayflex;
+  justify-content: center;
+  @extend %centered;
 	@extend %position;
-	@media #{$break} {
-		padding-top: 4%;
-	}
 }

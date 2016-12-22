@@ -13,3 +13,8 @@
 	font-weight: $weight;
 	color: $color;
 }
+
+@mixin transition($duration, $property, $timing: ease-in-out, $delay: null) {
+	-webkit-transition: $duration $property $timing $delay;
+	transition: $duration $property $timing $delay;
+}

@@ -5,7 +5,7 @@
 body { 
 	height: 1200px;
 	@include background($img-path, cover);
-	@media #{$break} {
+	@media #{$break-tablet} {
 		width: 100%;
     	text-align: center;
 	} 
