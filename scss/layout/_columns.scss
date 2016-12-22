@@ -13,8 +13,7 @@
 }
 
 .col-xs-2  {
-  @extend %flexbox;
-  justify-content: center;
+  @include flexbox($justify-content: center);
   @extend %centered;
 	@extend %position;
 }
