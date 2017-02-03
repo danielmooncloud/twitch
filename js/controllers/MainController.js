@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('MainController', ['$scope', 'members', function($scope, members) {
 
 $scope.onlineUsers = [];

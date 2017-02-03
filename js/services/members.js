@@ -1,3 +1,5 @@
+'use strict';
+
 app.service('members', ['$http', function($http) {
 
 	this.users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "brunofin", "comster404"];
