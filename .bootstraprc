@@ -1,0 +1,20 @@
+{
+ "bootstrapVersion": 3,
+ "styleLoaders": ["style-loader", "css-loader", "sass-loader"],
+ "styles": {   
+    "buttons": true,
+    "button-groups": true,
+    "forms": true,
+    "grid": true,
+    "mixins": true,
+    "navs": true,
+    "navbar": true,
+    "type": true,
+    "tooltip": true,
+    "utilities": true
+ },
+ "scripts": { 
+    "modal": true,
+    "collapse": true
+ }
+}
