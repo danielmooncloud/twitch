@@ -1,16 +1,17 @@
-var angular = require("angular");
-var ngSanitize = require("angular-sanitize");
-require("bootstrap-loader");
-require("../scss/application.scss");
+import angular from "angular";
+import ngSanitize from "angular-sanitize";
 
-var app = angular.module('Twitch', [ngSanitize])
+import AppConfig from "./config/AppConfig.js";
+import MainController from "./controllers/MainController.js";
+import members from "./services/members.js";
 
-.config(["$sceDelegateProvider", function($sceDelegateProvider) {
-	$sceDelegateProvider.resourceUrlWhitelist([
-		"self",
-		"https://wind-bow.gomix.me/twitch-api/users/**"	
-	]);
-}]);
+import "bootstrap-loader";
+import "../scss/application.scss";
 
-require("./controllers/MainController.js");
-require("./services/members.js");
+
+angular.module('Twitch', [ngSanitize])
+	.config(["$sceDelegateProvider", AppConfig])
+	.service('members', ['$http', members])
+	.controller('MainController', ['$scope', 'members', MainController])
+
+

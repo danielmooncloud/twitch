@@ -1,53 +1,38 @@
-var angular = require("angular");
-
-angular.module("Twitch").controller('MainController', ['$scope', 'members', function($scope, members) {
-
-$scope.onlineUsers = [];
-$scope.offlineUsers = [];
-$scope.invalid = [];
-
-$scope.users = members.users;
-
-$scope.state = function(online, offline) {
-	$scope.online = online;
-	$scope.offline = offline;
-}
-
-$scope.users.forEach(function(user) {
-	members.getUsers(user, function(firstResponse) {
-		if(firstResponse.status !== 200) {
-			return false;
-		}
-		let userData = firstResponse.data;
-		if(userData.error) {
-			let userObject = {
-				"name" : user
-			}
-			$scope.invalid.push(userObject);
-		} else {
-			members.getStreams(user, function(secondResponse) {
-				if(secondResponse.status !== 200) {
-					return false;
-				}
-				let streamData = secondResponse.data;
-				if(!streamData.stream) {
-					let userObject = {
-						"name": user,
-						"userData" : userData
-					}
-					$scope.offlineUsers.push(userObject);
-					
-				} else {
-					let userObject = {
-						"userData" : userData,
-						"streamData" : streamData
-					}
-					$scope.onlineUsers.push(userObject);
-				}
-			})
-		}	
-	})
-})
 
 
-}]);
+const MainController = ($scope, members) => {
+
+	$scope.onlineUsers = [];
+	$scope.offlineUsers = [];
+	$scope.invalid = [];
+
+	$scope.users = members.users;
+
+	$scope.state = (online, offline) => {
+		$scope.online = online;
+		$scope.offline = offline;
+	}
+
+	const formatUserData = user => response => {
+		if(response.status !== 200) return false;
+
+		response.data.error ? 
+			$scope.invalid.push({"name": user}) :
+			members.getStreams(user, formatStreamData(user, response.data));
+	}
+
+	const formatStreamData = (user, userData) => response => {
+		if(response.status !== 200) return false;
+		let streamData = response.data;
+		
+		streamData.stream ?
+			$scope.onlineUsers.push({userData, streamData}) :
+			$scope.offlineUsers.push({"name": user, userData});
+	}
+
+	$scope.users.forEach((user) => members.getUser(user, formatUserData(user)))
+
+
+};
+
+export default MainController;
