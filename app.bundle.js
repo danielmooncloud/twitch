@@ -9803,9 +9803,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 "use strict";
 
 
-var angular = __webpack_require__(0);
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var AppConfig = function AppConfig($sceDelegateProvider) {
+	$sceDelegateProvider.resourceUrlWhitelist(["self", "https://wind-bow.gomix.me/twitch-api/users/**"]);
+};
 
-angular.module("Twitch").controller('MainController', ['$scope', 'members', function ($scope, members) {
+exports.default = AppConfig;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+
+var MainController = function MainController($scope, members) {
 
 	$scope.onlineUsers = [];
 	$scope.offlineUsers = [];
@@ -9818,73 +9837,29 @@ angular.module("Twitch").controller('MainController', ['$scope', 'members', func
 		$scope.offline = offline;
 	};
 
-	$scope.users.forEach(function (user) {
-		members.getUsers(user, function (firstResponse) {
-			if (firstResponse.status !== 200) {
-				return false;
-			}
-			var userData = firstResponse.data;
-			if (userData.error) {
-				var userObject = {
-					"name": user
-				};
-				$scope.invalid.push(userObject);
-			} else {
-				members.getStreams(user, function (secondResponse) {
-					if (secondResponse.status !== 200) {
-						return false;
-					}
-					var streamData = secondResponse.data;
-					if (!streamData.stream) {
-						var _userObject = {
-							"name": user,
-							"userData": userData
-						};
-						$scope.offlineUsers.push(_userObject);
-					} else {
-						var _userObject2 = {
-							"userData": userData,
-							"streamData": streamData
-						};
-						$scope.onlineUsers.push(_userObject2);
-					}
-				});
-			}
-		});
-	});
-}]);
+	var formatUserData = function formatUserData(user) {
+		return function (response) {
+			if (response.status !== 200) return false;
 
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var angular = __webpack_require__(0);
-
-angular.module("Twitch").service('members', ['$http', function ($http) {
-
-	this.users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "brunofin", "comster404"];
-
-	var logError = function logError(err) {
-		console.log(err);
-	};
-
-	this.getUsers = function (user, callback) {
-		$http.jsonp('https://wind-bow.gomix.me/twitch-api/users/' + user).then(callback).catch(logError);
-	};
-
-	this.getStreams = function (user, callback) {
-		var config = {
-			headers: {
-				'Client-ID': 'di3ur1s4mxgvhj4xoshs7jbf2midww0'
-			}
+			response.data.error ? $scope.invalid.push({ "name": user }) : members.getStreams(user, formatStreamData(user, response.data));
 		};
-
-		$http.get('https://api.twitch.tv/kraken/streams/' + user, config).then(callback).catch(logError);
 	};
-}]);
+
+	var formatStreamData = function formatStreamData(user, userData) {
+		return function (response) {
+			if (response.status !== 200) return false;
+			var streamData = response.data;
+
+			streamData.stream ? $scope.onlineUsers.push({ userData: userData, streamData: streamData }) : $scope.offlineUsers.push({ "name": user, userData: userData });
+		};
+	};
+
+	$scope.users.forEach(function (user) {
+		return members.getUser(user, formatUserData(user));
+	});
+};
+
+exports.default = MainController;
 
 /***/ }),
 /* 5 */
@@ -9893,19 +9868,81 @@ angular.module("Twitch").service('members', ['$http', function ($http) {
 "use strict";
 
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
-module.exports = __webpack_require__(18);
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+function members($http) {
+
+	this.users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "brunofin", "comster404"];
+
+	this.getUser = function (user, callback) {
+		$http.jsonp('https://wind-bow.gomix.me/twitch-api/users/' + user).then(callback).catch(console.log);
+	};
+
+	this.getStreams = function (user, callback) {
+		var config = { headers: { 'Client-ID': 'di3ur1s4mxgvhj4xoshs7jbf2midww0' } };
+
+		$http.get('https://api.twitch.tv/kraken/streams/' + user, config).then(callback).catch(console.log);
+	};
+};
+
+exports.default = members;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+module.exports = __webpack_require__(20);
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 7 */,
-/* 8 */,
-/* 9 */
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _angular = __webpack_require__(1);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _angularSanitize = __webpack_require__(0);
+
+var _angularSanitize2 = _interopRequireDefault(_angularSanitize);
+
+var _AppConfig = __webpack_require__(3);
+
+var _AppConfig2 = _interopRequireDefault(_AppConfig);
+
+var _MainController = __webpack_require__(4);
+
+var _MainController2 = _interopRequireDefault(_MainController);
+
+var _members = __webpack_require__(5);
+
+var _members2 = _interopRequireDefault(_members);
+
+__webpack_require__(6);
+
+__webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_angular2.default.module('Twitch', [_angularSanitize2.default]).config(["$sceDelegateProvider", _AppConfig2.default]).service('members', ['$http', _members2.default]).controller('MainController', ['$scope', 'members', _MainController2.default]);
+
+/***/ }),
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9948,7 +9985,7 @@ function byteLength(b64) {
 }
 
 function toByteArray(b64) {
-  var i, j, l, tmp, placeHolders, arr;
+  var i, l, tmp, placeHolders, arr;
   var len = b64.length;
   placeHolders = placeHoldersCount(b64);
 
@@ -9959,7 +9996,7 @@ function toByteArray(b64) {
 
   var L = 0;
 
-  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+  for (i = 0; i < l; i += 4) {
     tmp = revLookup[b64.charCodeAt(i)] << 18 | revLookup[b64.charCodeAt(i + 1)] << 12 | revLookup[b64.charCodeAt(i + 2)] << 6 | revLookup[b64.charCodeAt(i + 3)];
     arr[L++] = tmp >> 16 & 0xFF;
     arr[L++] = tmp >> 8 & 0xFF;
@@ -10025,7 +10062,7 @@ function fromByteArray(uint8) {
 }
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10216,7 +10253,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10531,7 +10568,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10545,9 +10582,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 
 
-var base64 = __webpack_require__(9);
-var ieee754 = __webpack_require__(14);
-var isArray = __webpack_require__(15);
+var base64 = __webpack_require__(11);
+var ieee754 = __webpack_require__(16);
+var isArray = __webpack_require__(17);
 
 exports.Buffer = Buffer;
 exports.SlowBuffer = SlowBuffer;
@@ -12272,10 +12309,10 @@ function blitBuffer(src, dst, offset, length) {
 function isnan(val) {
   return val !== val; // eslint-disable-line no-self-compare
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)))
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12354,10 +12391,10 @@ function toComment(sourceMap) {
 
 	return '/*# ' + data + ' */';
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14).Buffer))
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12449,7 +12486,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 };
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12462,7 +12499,7 @@ module.exports = Array.isArray || function (arr) {
 };
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12534,7 +12571,7 @@ module.exports = function (css) {
 };
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12564,26 +12601,26 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports.css = __webpack_require__ (22);
-module.exports.js = __webpack_require__ (19);
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__ (11);
-__webpack_require__ (10);
-
-
-/***/ }),
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)(undefined);
+module.exports.css = __webpack_require__ (24);
+module.exports.js = __webpack_require__ (21);
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__ (13);
+__webpack_require__ (12);
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(15)(undefined);
 // imports
 
 
@@ -12594,7 +12631,7 @@ exports.push([module.i, ".btn {\n  display: inline-block;\n  margin-bottom: 0;\n
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -12618,7 +12655,7 @@ var stylesInDom = {},
 	singletonElement = null,
 	singletonCounter = 0,
 	styleElementsInsertedAtTop = [],
-	fixUrls = __webpack_require__(16);
+	fixUrls = __webpack_require__(18);
 
 module.exports = function(list, options) {
 	if(typeof DEBUG !== "undefined" && DEBUG) {
@@ -12871,16 +12908,16 @@ function updateLink(linkElement, options, obj) {
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(20);
+var content = __webpack_require__(22);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(21)(content, {});
+var update = __webpack_require__(23)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -12896,24 +12933,5 @@ if(false) {
 	module.hot.dispose(function() { update(); });
 }
 
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var angular = __webpack_require__(0);
-var ngSanitize = __webpack_require__(1);
-__webpack_require__(5);
-__webpack_require__(6);
-
-var app = angular.module('Twitch', [ngSanitize]).config(["$sceDelegateProvider", function ($sceDelegateProvider) {
-	$sceDelegateProvider.resourceUrlWhitelist(["self", "https://wind-bow.gomix.me/twitch-api/users/**"]);
-}]);
-
-__webpack_require__(3);
-__webpack_require__(4);
-
 /***/ })
-],[23]);
+],[8]);
