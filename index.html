@@ -1,74 +1,74 @@
 <!DOCTYPE html>
 
 <head>
-	<meta charset = "utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Twitch</title>
-  <link rel="icon" href="images/motorbike.png?v=2">
-	<link rel='stylesheet' href="app.css">
-	
+    <meta charset = "utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Twitch</title>
+    <link rel="icon" href="images/motorbike.png?v=2">
+    <link rel='stylesheet' href="app.css">
 </head>
 
 <body ng-app="Twitch" ng-controller="MainController" ng-init="state(true, true)">
-  	<div class = 'header'>
-
+    <div class = 'header'>
         <h1 ng-click='state(false, false)'>TWITCH</h1>            
     </div>
- 
-   
-  	<div class="main">
-    	<ul class = 'nav nav-tabs'>
-		    <li><button class="btn all" id='all' ng-click="state(true, true)">All</button></li>
-		    <li><button class="btn" id='online' ng-click="state(true, false)">Online</button></li>
-		    <li><button class="btn" id = 'offline' ng-click="state(false, true)">Offline</button></li>
-    	</ul>
+
+
+    <div class="main">
+        <ul class = 'nav nav-tabs'>
+            <li><button class="btn all" id='all' ng-click="state(true, true)">All</button></li>
+            <li><button class="btn" id='online' ng-click="state(true, false)">Online</button></li>
+            <li><button class="btn" id = 'offline' ng-click="state(false, true)">Offline</button></li>
+        </ul>
         <!-- ONLINE USERS -->
-      
-     	<div class="row online all" ng-repeat="user in onlineUsers" ng-show="online===true"> 
-        	<div class="col-xs-2">
-          	<img ng-src ="{{user.userData.logo}}" class="logo"/> 
-        	</div>
-        	<div class="col-xs-4">
-          	<p>{{user.userData.display_name}}</p>                   
-         	</div>
-         	<div class="col-xs-6" id='stream'>
-          	<a ng-href="https://www.twitch.tv/{{user.userData.display_name}}" target="blank">{{user.streamData.stream.game}}: {{user.streamData.stream.channel.status}}</a>
-         	</div>
-      </div>
-        
-     <!-- OFFLINE USERS -->   
-        
-    	<div class="row offline all" ng-repeat="user in offlineUsers" ng-show="offline===true">
-      	<div class="col-xs-2">
-         		<img ng-src ="{{user.userData.logo}}" class="logo"/> 
-      	</div>
-      	<div class="col-xs-4">
-         		<p>{{user.name}}</p>
-      	</div>
-      	<div class="col-xs-6" id='stream'>
-          	<p>OFFLINE</p>
-      	</div>
-    	</div>
-       
-      <!-- CLOSED ACCOUNTS -->
-         
-    	<div class="row cancelled all" ng-repeat="user in invalid" ng-show="online===true&&offline===true"> 
-       		<div class="col-xs-2">
-         		<img src ="http://images.clipartpanda.com/question-mark-black-and-white-Icon-round-Question_mark.jpg" class="logo"/> 
-        	</div>
-        	<div class="col-xs-4">
-         		<p>{{user.name}}</p>                   
-        	</div>
-        	<div class="col-xs-6" id='stream'>
-          		<p>ACCOUNT CLOSED</p>
-        	</div>
-  		</div>
-      
+
+        <div class="row online all" ng-repeat="user in onlineUsers" ng-show="online===true"> 
+            <div class="col-xs-2">
+                <img ng-src ="{{user.userData.logo}}" class="logo"/> 
+            </div>
+            <div class="col-xs-4">
+                <p>{{user.userData.display_name}}</p>                   
+            </div>
+            <div class="col-xs-6" id='stream'>
+                <a ng-href="https://www.twitch.tv/{{user.userData.display_name}}" target="blank">
+                    {{user.streamData.stream.game}}: {{user.streamData.stream.channel.status}}
+                </a>
+            </div>
+        </div>
+
+        <!-- OFFLINE USERS -->   
+
+        <div class="row offline all" ng-repeat="user in offlineUsers" ng-show="offline===true">
+            <div class="col-xs-2">
+                <img ng-src ="{{user.userData.logo}}" class="logo"/> 
+            </div>
+            <div class="col-xs-4">
+                <p>{{user.name}}</p>
+            </div>
+            <div class="col-xs-6" id='stream'>
+                <p>OFFLINE</p>
+            </div>
+        </div>
+
+        <!-- CLOSED ACCOUNTS -->
+
+        <div class="row cancelled all" ng-repeat="user in invalid" ng-show="online===true&&offline===true"> 
+            <div class="col-xs-2">
+                <img src ="http://images.clipartpanda.com/question-mark-black-and-white-Icon-round-Question_mark.jpg" class="logo"/> 
+            </div>
+            <div class="col-xs-4">
+                <p>{{user.name}}</p>                   
+            </div>
+            <div class="col-xs-6" id='stream'>
+                <p>ACCOUNT CLOSED</p>
+            </div>
+        </div>
+
     </div> 
 
     <!-- vendors -->
     <script src="app.vendor.js"></script>
     <script src="app.bundle.js"></script>
-   
+
 
 </body>
