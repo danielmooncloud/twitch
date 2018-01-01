@@ -9837,20 +9837,38 @@ var MainController = function MainController($scope, members) {
 		$scope.offline = offline;
 	};
 
+	// This function needs to be curried to pass the name of the user to the invalid array
+	// Since it won't be on the returned obeject.
 	var formatUserData = function formatUserData(user) {
 		return function (response) {
-			if (response.status !== 200) return false;
-
-			response.data.error ? $scope.invalid.push({ "name": user }) : members.getStreams(user, formatStreamData(user, response.data));
+			if (response.status == 200) {
+				if (response.data.error) {
+					// If the user doesn't exist, the response object contains
+					// an error property rather than throwing an error
+					// These are the "Closed" Accounts	
+					$scope.invalid.push({ "name": user });
+				} else {
+					//Next if the user exists, make a second request to get more data
+					members.getStreams(user, formatStreamData(user, response.data));
+				}
+			}
 		};
 	};
 
+	//This function needs to be curried becuase userData has information that 
+	//streamData does not and both are need for a status update.
 	var formatStreamData = function formatStreamData(user, userData) {
 		return function (response) {
-			if (response.status !== 200) return false;
-			var streamData = response.data;
-
-			streamData.stream ? $scope.onlineUsers.push({ userData: userData, streamData: streamData }) : $scope.offlineUsers.push({ "name": user, userData: userData });
+			if (response.status == 200) {
+				var streamData = response.data;
+				if (streamData.stream) {
+					// These are the online users
+					$scope.onlineUsers.push({ userData: userData, streamData: streamData });
+				} else {
+					// These are the offline users
+					$scope.offlineUsers.push({ "name": user, userData: userData });
+				}
+			}
 		};
 	};
 
@@ -12923,8 +12941,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../css-loader/index.js!../resolve-url-loader/index.js!../sass-loader/lib/loader.js?sourceMap!./lib/bootstrap.styles.loader.js?{\"bootstrapVersion\":3,\"extractStyles\":false,\"styleLoaders\":[\"style-loader\",\"css-loader\",\"sass-loader\"],\"styles\":[\"buttons\",\"button-groups\",\"forms\",\"grid\",\"mixins\",\"navs\",\"navbar\",\"type\",\"tooltip\",\"utilities\"],\"scripts\":[\"modal\",\"collapse\"],\"configFilePath\":\"/Users/danielsousa/Desktop/freecodecamp/Front_End/Intermediate/twitch_redux/.bootstraprc\",\"bootstrapPath\":\"/Users/danielsousa/Desktop/freecodecamp/Front_End/Intermediate/twitch_redux/node_modules/bootstrap-sass\",\"bootstrapRelPath\":\"../bootstrap-sass\"}!../babel-loader/lib/index.js!../babel-loader/lib/index.js!./no-op.js", function() {
-			var newContent = require("!!../css-loader/index.js!../resolve-url-loader/index.js!../sass-loader/lib/loader.js?sourceMap!./lib/bootstrap.styles.loader.js?{\"bootstrapVersion\":3,\"extractStyles\":false,\"styleLoaders\":[\"style-loader\",\"css-loader\",\"sass-loader\"],\"styles\":[\"buttons\",\"button-groups\",\"forms\",\"grid\",\"mixins\",\"navs\",\"navbar\",\"type\",\"tooltip\",\"utilities\"],\"scripts\":[\"modal\",\"collapse\"],\"configFilePath\":\"/Users/danielsousa/Desktop/freecodecamp/Front_End/Intermediate/twitch_redux/.bootstraprc\",\"bootstrapPath\":\"/Users/danielsousa/Desktop/freecodecamp/Front_End/Intermediate/twitch_redux/node_modules/bootstrap-sass\",\"bootstrapRelPath\":\"../bootstrap-sass\"}!../babel-loader/lib/index.js!../babel-loader/lib/index.js!./no-op.js");
+		module.hot.accept("!!../css-loader/index.js!../resolve-url-loader/index.js!../sass-loader/lib/loader.js?sourceMap!./lib/bootstrap.styles.loader.js?{\"bootstrapVersion\":3,\"extractStyles\":false,\"styleLoaders\":[\"style-loader\",\"css-loader\",\"sass-loader\"],\"styles\":[\"buttons\",\"button-groups\",\"forms\",\"grid\",\"mixins\",\"navs\",\"navbar\",\"type\",\"tooltip\",\"utilities\"],\"scripts\":[\"modal\",\"collapse\"],\"configFilePath\":\"/Users/danielsousa/Desktop/fcc/twitch/.bootstraprc\",\"bootstrapPath\":\"/Users/danielsousa/Desktop/fcc/twitch/node_modules/bootstrap-sass\",\"bootstrapRelPath\":\"../bootstrap-sass\"}!../babel-loader/lib/index.js!../babel-loader/lib/index.js!./no-op.js", function() {
+			var newContent = require("!!../css-loader/index.js!../resolve-url-loader/index.js!../sass-loader/lib/loader.js?sourceMap!./lib/bootstrap.styles.loader.js?{\"bootstrapVersion\":3,\"extractStyles\":false,\"styleLoaders\":[\"style-loader\",\"css-loader\",\"sass-loader\"],\"styles\":[\"buttons\",\"button-groups\",\"forms\",\"grid\",\"mixins\",\"navs\",\"navbar\",\"type\",\"tooltip\",\"utilities\"],\"scripts\":[\"modal\",\"collapse\"],\"configFilePath\":\"/Users/danielsousa/Desktop/fcc/twitch/.bootstraprc\",\"bootstrapPath\":\"/Users/danielsousa/Desktop/fcc/twitch/node_modules/bootstrap-sass\",\"bootstrapRelPath\":\"../bootstrap-sass\"}!../babel-loader/lib/index.js!../babel-loader/lib/index.js!./no-op.js");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});

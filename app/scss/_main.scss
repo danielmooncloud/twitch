@@ -1,0 +1,128 @@
+@include font-face('Orbitron');
+
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+
+	height: 1200px;
+	@include background($img-path, cover);
+	@media #{$break-tablet} {
+		width: 100%;
+    	text-align: center;
+	}
+
+	.header {
+		margin: 0 auto 50px;
+		width: 50%;
+		font-family: $stack-orbitron;
+		@include text(18px);
+		text-align: center;
+		color: $lavendar;
+		@media #{$break-tablet} {
+			margin: auto;
+			width: 80%;
+		}
+
+		h1 {
+			@include text(80px);
+			letter-spacing: 10px;
+			font-family: $stack-orbitron;
+			@media #{$break-tablet} {
+				@include text(40px);
+		    	letter-spacing: 0px;
+			} 
+		}
+	}
+
+	.main {
+		margin: auto;
+		height: 100%;
+		width: 50%;
+		@media #{$break-tablet} {
+			margin: auto;
+	    	width: 90%;
+	    	text-align: center;
+		}
+
+		ul {
+			@media #{$break-tablet} {
+				width: 90%;
+		    	text-align: center;
+		    	margin: auto;
+			}
+
+			.btn {
+				margin-right: 2px;
+				width: 100px;
+				color: $white;
+				background-color: $blue;
+				font-family: $stack-orbitron;
+				&:focus, &:hover, &:active {
+					color: white;
+					outline: none;
+					background: #2E6DA4;
+					outline: none !important;
+					color: white !important;
+				}
+			}	
+		}
+
+		.row {
+			white-space: nowrap; 
+			overflow: hidden;  
+			border-radius: 2px;
+			height: 80px;
+			margin-top: 10px;
+
+			.col-xs-6 {
+				margin: auto;
+				height: 100%;
+				padding-top: 25px;
+				padding-left: 20px;
+
+				p, a {
+					font-family: $stack-orbitron;
+				}
+			}
+			 
+
+			.col-xs-4  {
+				margin: auto;
+				height: 100%;
+				text-align: center;
+				padding-top: 25px;
+
+				p, a {
+					font-family: $stack-orbitron;
+				}
+			}
+
+			.col-xs-2  {
+				@include flexbox($justify-content: center);
+				text-align: center;
+				margin: auto;
+				height: 100%;
+
+				.logo {
+					-webkit-box-flex: 1;
+				    -ms-flex: 1 0;
+			        flex: 1 0;
+					-ms-flex-item-align: center;
+			  	    align-self: center;
+					max-width: 90px;
+					max-height: 100%;
+					border-radius: 50%;
+					@media #{$break-tablet} {
+						width: 100%;
+					} 	
+				}
+
+			}
+		}
+	}
+}
+
+ 
