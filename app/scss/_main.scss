@@ -47,6 +47,20 @@ body {
 	    	text-align: center;
 		}
 
+		.error-window {
+			position: fixed;
+			top: 30%;
+			width: 700px;
+			margin-left: -350px;
+			color: white;
+			left: 50%;
+			text-align: center;
+
+			h2 {
+				font-family: "Orbitron", Helvetica, Arial, sans-serif;
+			}
+		}
+
 		ul {
 			@media #{$break-tablet} {
 				width: 90%;
@@ -80,11 +94,12 @@ body {
 			.col-xs-6 {
 				margin: auto;
 				height: 100%;
-				padding-top: 25px;
+				padding-top: 30px;
 				padding-left: 20px;
 
 				p, a {
 					font-family: $stack-orbitron;
+					font-size: 20px;
 				}
 			}
 			 
@@ -93,10 +108,11 @@ body {
 				margin: auto;
 				height: 100%;
 				text-align: center;
-				padding-top: 25px;
+				padding-top: 30px;
 
 				p, a {
 					font-family: $stack-orbitron;
+					font-size: 20px;
 				}
 			}
 

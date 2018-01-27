@@ -20,9 +20,16 @@
             <li><button class="btn" id='online' ng-click="state(true, false)">Online</button></li>
             <li><button class="btn" id = 'offline' ng-click="state(false, true)">Offline</button></li>
         </ul>
+
+        <!-- ERROR WINDOW -->
+        <div class="error-window" ng-show="error">
+            <h2>{{error.message}}</h2>
+        </div>
+
+
         <!-- ONLINE USERS -->
 
-        <div class="row online all" ng-repeat="user in onlineUsers" ng-show="online===true"> 
+        <div class="row online all" ng-repeat="user in onlineUsers" ng-show="online"> 
             <div class="col-xs-2">
                 <img ng-src ="{{user.userData.logo}}" class="logo"/> 
             </div>
@@ -38,7 +45,7 @@
 
         <!-- OFFLINE USERS -->   
 
-        <div class="row offline all" ng-repeat="user in offlineUsers" ng-show="offline===true">
+        <div class="row offline all" ng-repeat="user in offlineUsers" ng-show="offline">
             <div class="col-xs-2">
                 <img ng-src ="{{user.userData.logo}}" class="logo"/> 
             </div>
@@ -52,7 +59,7 @@
 
         <!-- CLOSED ACCOUNTS -->
 
-        <div class="row cancelled all" ng-repeat="user in invalid" ng-show="online===true&&offline===true"> 
+        <div class="row cancelled all" ng-repeat="user in invalid" ng-show="online&&offline"> 
             <div class="col-xs-2">
                 <img src ="http://images.clipartpanda.com/question-mark-black-and-white-Icon-round-Question_mark.jpg" class="logo"/> 
             </div>

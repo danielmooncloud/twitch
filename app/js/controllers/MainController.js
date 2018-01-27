@@ -5,6 +5,7 @@ const MainController = ($scope, members) => {
 	$scope.onlineUsers = [];
 	$scope.offlineUsers = [];
 	$scope.invalid = [];
+	$scope.error;
 
 	$scope.users = members.users;
 
@@ -13,42 +14,40 @@ const MainController = ($scope, members) => {
 		$scope.offline = offline;
 	}
 
-	// This function needs to be curried to pass the name of the user to the invalid array
-	// Since it won't be on the returned obeject.
-	const formatUserData = (user) => {
-		return (response) => {
-			if(response.status == 200) {
-				if(response.data.error) {
-					// If the user doesn't exist, the response object contains
-					// an error property rather than throwing an error
-					// These are the "Closed" Accounts	
-					$scope.invalid.push({"name": user})
-				} else {
-					//Next if the user exists, make a second request to get more data
-					members.getStreams(user, formatStreamData(user, response.data));
-				}
-			}
+	
+	const categorizeUser = (user, userData, streamData) => {
+		if(userData.error) {
+			$scope.invalid.push({"name": user});
+		} else if(streamData.stream) {
+			$scope.onlineUsers.push({userData, streamData});
+		} else {
+			$scope.offlineUsers.push({"name": user, userData});
 		}
+		//Forces angular to update the UI when the state is updated
+		$scope.$apply();
 	}
 
-	//This function needs to be curried becuase userData has information that 
-	//streamData does not and both are need for a status update.
-	const formatStreamData = (user, userData) => {
-		return (response) => {
-			if(response.status == 200) {
-				const streamData = response.data;
-				if(streamData.stream) {
-					// These are the online users
-					$scope.onlineUsers.push({userData, streamData})
-				} else {
-					// These are the offline users
-					$scope.offlineUsers.push({"name": user, userData});
-				}
-			}
-		}
-	}
 
-	$scope.users.forEach((user) => members.getUser(user, formatUserData(user)))
+	const getUserData = (users, cb) => {
+		users.forEach(async (user) => {
+			try {
+				//First request is to get user data
+				const userData = (await members.getUser(user)).data;
+				//Second request is to get data about user's streams
+				const streamData = (await members.getStreams(user)).data;
+				//send the data to be categorized
+				cb(user, userData, streamData);
+			} catch(err) {
+				$scope.error = new Error("Error occured during connection. Please Try Again Later.")
+			}
+			
+		})
+	}
+	
+
+	getUserData($scope.users, categorizeUser);
+
+
 
 
 };
