@@ -9,7 +9,7 @@ const MainController = ($scope, members) => {
 
 	$scope.users = members.users;
 
-	$scope.state = (online, offline) => {
+	$scope.userFilter = (online, offline) => {
 		$scope.online = online;
 		$scope.offline = offline;
 	}

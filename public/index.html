@@ -8,17 +8,17 @@
     <link rel='stylesheet' href="app.css">
 </head>
 
-<body ng-app="Twitch" ng-controller="MainController" ng-init="state(true, true)">
+<body ng-app="Twitch" ng-controller="MainController" ng-init="userFilter(false, false)">
     <div class = 'header'>
-        <h1 ng-click='state(false, false)'>TWITCH</h1>            
+        <h1 ng-click='userFilter(false, false)'>TWITCH</h1>            
     </div>
 
 
     <div class="main">
         <ul class = 'nav nav-tabs'>
-            <li><button class="btn all" id='all' ng-click="state(true, true)">All</button></li>
-            <li><button class="btn" id='online' ng-click="state(true, false)">Online</button></li>
-            <li><button class="btn" id = 'offline' ng-click="state(false, true)">Offline</button></li>
+            <li><button class="btn all" id='all' ng-click="userFilter(true, true)">All</button></li>
+            <li><button class="btn" id='online' ng-click="userFilter(true, false)">Online</button></li>
+            <li><button class="btn" id = 'offline' ng-click="userFilter(false, true)">Offline</button></li>
         </ul>
 
         <!-- ERROR WINDOW -->
