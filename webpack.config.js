@@ -21,14 +21,10 @@ module.exports = {
 					use: "css-loader!sass-loader"
 				})
 			},
-			{ 
-      			test: /bootstrap\/dist\/js\/umd\//, 
-      			loaders: ['imports?jQuery=jquery'] 
-      		},
 			{
 				test: /\.js$/,
 				exclude: "/node_modules/",
-				loaders: ["babel-loader"] 
+				loaders: ["babel-loader", "eslint-loader"] 
 			},
 			{ 
       			test: /\.json$/, 
@@ -38,11 +34,6 @@ module.exports = {
 	},
 	plugins: [
 				new webpack.optimize.CommonsChunkPlugin({"name": "vendor", "filename": "app.vendor.js"}),
-				new ExtractTextPlugin("[name].css"),
-				new webpack.ProvidePlugin({   
-			        jQuery: 'jquery',
-			        $: 'jquery',
-			        jquery: 'jquery'
-			    })
+				new ExtractTextPlugin("[name].css")
 			]
 }

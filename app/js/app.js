@@ -5,13 +5,12 @@ import AppConfig from "./config/AppConfig.js";
 import MainController from "./controllers/MainController.js";
 import members from "./services/members.js";
 
-import "bootstrap-loader";
 import "../scss/application.scss";
 
 
-angular.module('Twitch', [ngSanitize])
+angular.module("Twitch", [ngSanitize])
 	.config(["$sceDelegateProvider", AppConfig])
-	.service('members', ['$http', members])
-	.controller('MainController', ['$scope', 'members', MainController])
+	.service("members", ["$http", members])
+	.controller("MainController", ["$scope", "members", MainController]);
 
 

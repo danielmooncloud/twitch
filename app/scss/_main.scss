@@ -47,6 +47,24 @@ body {
 	    	text-align: center;
 		}
 
+		.navbar {
+			display: flex;
+			margin: 0;
+		    padding: 0;
+		    list-style-type: none;
+
+		    li {
+		    	width: 33%;
+		    	
+		    	button {
+		    		width: 100%;
+		    		height: 30px;
+		    		font-size: 18px;
+    				padding-top: 5px;
+		    	}
+		    }
+		}
+
 		.error-window {
 			position: fixed;
 			top: 30%;
@@ -90,12 +108,14 @@ body {
 			border-radius: 2px;
 			height: 80px;
 			margin-top: 10px;
+			display: flex;
 
-			.col-xs-6 {
+			.stream-col {
 				margin: auto;
 				height: 100%;
-				padding-top: 30px;
+				padding-top: 15px;
 				padding-left: 20px;
+				width: 50%;
 
 				p, a {
 					font-family: $stack-orbitron;
@@ -104,11 +124,12 @@ body {
 			}
 			 
 
-			.col-xs-4  {
+			.name-col  {
 				margin: auto;
 				height: 100%;
 				text-align: center;
-				padding-top: 30px;
+				padding-top: 15px;
+				width: 30%;
 
 				p, a {
 					font-family: $stack-orbitron;
@@ -116,11 +137,12 @@ body {
 				}
 			}
 
-			.col-xs-2  {
+			.img-col {
 				@include flexbox($justify-content: center);
 				text-align: center;
 				margin: auto;
 				height: 100%;
+				width: 20%;
 
 				.logo {
 					-webkit-box-flex: 1;

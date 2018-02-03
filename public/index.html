@@ -8,14 +8,14 @@
     <link rel='stylesheet' href="app.css">
 </head>
 
-<body ng-app="Twitch" ng-controller="MainController" ng-init="userFilter(false, false)">
+<body ng-app="Twitch" ng-controller="MainController" ng-init="userFilter(true, true)">
     <div class = 'header'>
         <h1 ng-click='userFilter(false, false)'>TWITCH</h1>            
     </div>
 
 
     <div class="main">
-        <ul class = 'nav nav-tabs'>
+        <ul class = 'navbar'>
             <li><button class="btn all" id='all' ng-click="userFilter(true, true)">All</button></li>
             <li><button class="btn" id='online' ng-click="userFilter(true, false)">Online</button></li>
             <li><button class="btn" id = 'offline' ng-click="userFilter(false, true)">Offline</button></li>
@@ -30,29 +30,31 @@
         <!-- ONLINE USERS -->
 
         <div class="row online all" ng-repeat="user in onlineUsers" ng-show="online"> 
-            <div class="col-xs-2">
+            <div class="img-col">
                 <img ng-src ="{{user.userData.logo}}" class="logo"/> 
             </div>
-            <div class="col-xs-4">
+            <div class="name-col">
                 <p>{{user.userData.display_name}}</p>                   
             </div>
-            <div class="col-xs-6" id='stream'>
-                <a ng-href="https://www.twitch.tv/{{user.userData.display_name}}" target="blank">
-                    {{user.streamData.stream.game}}: {{user.streamData.stream.channel.status}}
-                </a>
+            <div class="stream-col" id='stream'>
+                <p>
+                    <a ng-href="https://www.twitch.tv/{{user.userData.display_name}}" target="blank">
+                        {{user.streamData.stream.game}}: {{user.streamData.stream.channel.status}}
+                    </a>
+                </p>
             </div>
         </div>
 
         <!-- OFFLINE USERS -->   
 
         <div class="row offline all" ng-repeat="user in offlineUsers" ng-show="offline">
-            <div class="col-xs-2">
+            <div class="img-col">
                 <img ng-src ="{{user.userData.logo}}" class="logo"/> 
             </div>
-            <div class="col-xs-4">
+            <div class="name-col">
                 <p>{{user.name}}</p>
             </div>
-            <div class="col-xs-6" id='stream'>
+            <div class="stream-col" id='stream'>
                 <p>OFFLINE</p>
             </div>
         </div>
@@ -60,13 +62,13 @@
         <!-- CLOSED ACCOUNTS -->
 
         <div class="row cancelled all" ng-repeat="user in invalid" ng-show="online&&offline"> 
-            <div class="col-xs-2">
+            <div class="img-col">
                 <img src ="http://images.clipartpanda.com/question-mark-black-and-white-Icon-round-Question_mark.jpg" class="logo"/> 
             </div>
-            <div class="col-xs-4">
+            <div class="name-col">
                 <p>{{user.name}}</p>                   
             </div>
-            <div class="col-xs-6" id='stream'>
+            <div class="stream-col" id='stream'>
                 <p>ACCOUNT CLOSED</p>
             </div>
         </div>

@@ -12,7 +12,7 @@ const MainController = ($scope, members) => {
 	$scope.userFilter = (online, offline) => {
 		$scope.online = online;
 		$scope.offline = offline;
-	}
+	};
 
 	
 	const categorizeUser = (user, userData, streamData) => {
@@ -25,7 +25,7 @@ const MainController = ($scope, members) => {
 		}
 		//Forces angular to update the UI when the state is updated
 		$scope.$apply();
-	}
+	};
 
 
 	const getUserData = (users, cb) => {
@@ -38,11 +38,11 @@ const MainController = ($scope, members) => {
 				//send the data to be categorized
 				cb(user, userData, streamData);
 			} catch(err) {
-				$scope.error = new Error("Error occured during connection. Please Try Again Later.")
+				$scope.error = new Error("Error occured during connection. Please Try Again Later.");
 			}
 			
-		})
-	}
+		});
+	};
 	
 
 	getUserData($scope.users, categorizeUser);
